@@ -1,0 +1,80 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/news-ticker-block",
+	"version": "0.1.0",
+	"title": "News Ticker",
+	"category": "widgets",
+	"icon": "megaphone",
+	"description": "A block to display a news ticker with various animations and controls.",
+	"render": "render_news_ticker_block",
+	"example": {},
+	"supports": {
+		"html": false,
+        "align": ["wide", "full"]
+	},
+	"textdomain": "news-ticker-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+    "attributes": {
+        "animationType": { "type": "string", "default": "scroll" },
+        "tickerSpeed": { "type": "number", "default": 5 },
+        "tickerDirection": { "type": "string", "default": "left" },
+        "showNavigation": { "type": "boolean", "default": true },
+        "showPlayPause": { "type": "boolean", "default": true },
+        "pauseOnHover": { "type": "boolean", "default": true },
+        "queryOptions": {
+            "type": "object",
+            "default": {
+                "postType": "post",
+                "selectedTaxonomy": "",
+                "selectedTerms": [],
+                "posts": [],
+                "customContent": []
+            }
+        },
+        "logoUrl": { "type": "string", "default": "" },
+        "breakingNewsHeading": { "type": "string", "default": "Breaking News" },
+        "showLiveText": { "type": "boolean", "default": false },
+        "liveTextContent": { "type": "string", "default": "LIVE" },
+        "showDate": { "type": "boolean", "default": true },
+        "align": { "type": "string", "default": "" },
+        "tickerStyles": {
+            "type": "object",
+            "default": {
+                "containerBackgroundColor": "",
+                "containerPaddingTop": "10px",
+                "containerPaddingRight": "15px",
+                "containerPaddingBottom": "10px",
+                "containerPaddingLeft": "15px",
+                "containerBorderWidth": "1px",
+                "containerBorderColor": "#e0e0e0",
+                "containerBorderStyle": "solid",
+                "containerBorderRadius": "0px",
+
+                "headerBackgroundColor": "",
+                "headerTextColor": "#333",
+                "headerHeadingFontFamily": "",
+                "headerHeadingFontSize": "1.1em",
+                "headerHeadingFontWeight": "bold",
+                "headerPaddingTop": "0px",
+                "headerPaddingRight": "0px",
+                "headerPaddingBottom": "8px",
+                "headerPaddingLeft": "0px",
+
+                "contentBackgroundColor": "",
+                "contentItemTextColor": "#444",
+                "contentItemLinkColor": "",
+                "contentItemFontFamily": "",
+                "contentItemFontSize": "0.95em",
+                "contentItemLineHeight": "1.5",
+
+                "controlsButtonBackgroundColor": "#f0f0f0",
+                "controlsButtonTextColor": "#333",
+                "controlsButtonBorderColor": "#ccc"
+            }
+        }
+    }
+}

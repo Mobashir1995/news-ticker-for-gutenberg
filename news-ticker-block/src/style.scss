@@ -1,0 +1,189 @@
+/**
+ * Base and Fallback Styles for News Ticker Block.
+ * Inline styles from tickerStyles attributes will override many of these.
+ */
+
+.wp-block-create-block-news-ticker-block {
+  // Default background and border are now primarily via tickerStyles.
+  // Keep some basic structural or fallback styles.
+  // background-color: #f9f9f9; // Default from Phase 1, will be overridden by inline style if set
+  // border: 1px solid #e0e0e0; // Default from Phase 1, will be overridden by inline style if set
+  // padding: 10px 15px; // Default from Phase 1, will be overridden by inline style if set
+
+  margin-bottom: 25px;
+  overflow: hidden; // Still important for animations
+  position: relative; // For positioning of absolute children
+  font-family: sans-serif; // A very basic default, will be overridden by inline style if set
+  line-height: 1.5; // General default, will be overridden by inline style if set
+
+  // Handle block alignment (wide, full) if not done by theme automatically for wrappers
+  &.alignwide {
+    // max-width: 1000px; // Example, theme usually handles this
+    // margin-left: auto;
+    // margin-right: auto;
+  }
+  &.alignfull {
+    // max-width: none; // Example, theme usually handles this
+    // margin-left: calc(-50vw + 50%);
+    // margin-right: calc(-50vw + 50%);
+  }
+}
+
+.news-ticker-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  // margin-bottom: 8px; // Can be part of default padding from tickerStyles or here
+  // padding-bottom: 8px; // Can be part of default padding from tickerStyles or here
+  border-bottom-width: 1px; // Default, can be overridden by tickerStyles (if we add header border controls)
+  border-bottom-style: solid; // Default
+  border-bottom-color: #ddd; // Default
+  // Background color, text color, font settings, padding are now via tickerStyles.
+}
+
+.news-ticker-logo {
+  max-height: 35px; // Keep as a sensible max
+  max-width: 120px; // Keep as a sensible max
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.news-ticker-heading {
+  // Font size, weight, color, family are now via tickerStyles.
+  margin: 0; // Keep
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-ticker-live-text {
+  // Default appearance if not overridden by more specific theme/user CSS
+  // Background color can be made a tickerStyle if needed.
+  background-color: #d9534f;
+  color: white;
+  padding: 3px 8px;
+  font-size: 0.75em; // Relative to parent
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.news-ticker-date {
+  // Font size, color, family are now via tickerStyles (inherited from heading or item style).
+  // For now, it gets heading_style in PHP. We could define separate date styles.
+  margin-left: auto;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.news-ticker-content {
+  // Background color now via tickerStyles.
+  min-height: 30px;
+  position: relative;
+  overflow: hidden;
+  // padding: 5px 0; // Can be part of default content area padding from tickerStyles or here
+}
+
+.news-item, .news-item-custom {
+  // Default padding, font size, color, line height, family are now via tickerStyles (item_style).
+  // padding: 5px 0; // Example, if item_style doesn't set it.
+  box-sizing: border-box; // Good for consistency
+
+  // Link styling within items
+  a.news-item-link, a { // Target general links and specific class
+    // color: #0073aa; // WordPress default link blue - will be overridden by inline style if contentItemLinkColor is set
+    text-decoration: none; // Personal preference, can be made a style option
+
+    &:hover, &:focus {
+      text-decoration: underline; // Common hover effect
+      // color: #005177; // Darker blue on hover - can be made a style option (itemLinkHoverColor)
+    }
+  }
+}
+
+.news-items-no-content {
+  // Font size, color, etc., from item_style in PHP.
+  // Add any specific padding or alignment if needed.
+  padding: 10px 5px; // Example padding for this message
+  text-align: center; // Example alignment
+}
+
+
+/* Controls Styling */
+.news-ticker-navigation,
+.news-ticker-controls {
+  margin-top: 8px;
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.news-ticker-prev-button,
+.news-ticker-next-button,
+.news-ticker-play-pause-button {
+  // Background color, text color, border color are now via tickerStyles.
+  // Default padding, font size, border-radius if not covered by tickerStyles (though they mostly are).
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.9em; // Relative to main block font size
+  border-radius: 3px;
+  border-width: 1px; // Default, can be overridden by tickerStyles (if we add button border width)
+  border-style: solid; // Default
+
+  // Basic transition for hover effects not covered by inline styles
+  transition: opacity 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover, &:focus {
+    // background-color: #e7e7e7; // Overridden by inline styles if set
+    // border-color: #bbb; // Overridden by inline styles if set
+    opacity: 0.85; // Example hover effect if colors are set dynamically
+    box-shadow: 0 0 3px rgba(0,0,0,0.1); // Subtle shadow
+  }
+  &:active {
+    // background-color: #ddd; // Overridden by inline styles if set
+    opacity: 1;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); // Inner shadow
+  }
+}
+
+
+/* --- Scroll Animation Specific Styles --- */
+/* These remain largely the same as they define the animation behavior */
+.news-ticker-scroll-active {
+  overflow: hidden;
+  width: 100%;
+}
+.news-ticker-scroll-wrapper {
+  display: inline-block;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running; /* Default, JS can set to 'paused' */
+}
+.news-ticker-scroll-wrapper.horizontal-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.news-ticker-scroll-wrapper.horizontal-scroll .news-item {
+  flex-shrink: 0;
+  margin-right: 20px;
+  padding: 0 5px;
+  white-space: normal;
+  display: inline-block;
+  box-sizing: border-box;
+}
+@keyframes newsTickerScrollLeft { /* ... as before ... */ 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+@keyframes newsTickerScrollRight { /* ... as before ... */ 0% { transform: translateX(-50%); } 100% { transform: translateX(0%); } }
+
+/* --- UpDown/Slide Animation Specific Styles --- */
+.news-ticker-updown-active .news-item,
+.news-ticker-slide-active .news-item {
+    box-sizing: border-box;
+    // position, width, transition, transform, opacity are set by JS for these animations.
+}
+
+/* Ensure editor styles don't conflict if this file is also used for editor (it is, via style-index.css) */
+body.block-editor-page .wp-block-create-block-news-ticker-block {
+    // No specific overrides needed here for now, as inline styles dominate.
+}

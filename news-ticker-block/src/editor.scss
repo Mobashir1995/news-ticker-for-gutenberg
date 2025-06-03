@@ -1,0 +1,143 @@
+/**
+ * The following styles get applied only in the editor.
+ */
+
+// Overall block wrapper in editor
+.wp-block-create-block-news-ticker-block {
+  // The editor preview is handled by edit.js directly with inline styles or simple structure.
+  // These styles are for the block's chrome or if specific editor overrides are needed.
+  // For example, if the preview in edit.js doesn't fully replicate the front-end look,
+  // some minimal adjustments can be made here.
+
+  // The preview inside edit.js has its own border: 1px dashed #ccc.
+  // We can add styles for the elements rendered by the preview if needed.
+  // For example, if the .news-ticker-heading in the preview needs specific sizing:
+  // .news-ticker-heading {
+  //   font-size: 0.9em; // Make it smaller in editor preview if too large
+  // }
+
+  // Ensure that the controls (InspectorControls) are not affected by front-end styles
+  // This is usually handled by WordPress itself.
+}
+
+// If using any specific classes in edit.js preview that are not in save.js
+// and need styling, they can be added here.
+// For example, for the placeholder text in the editor:
+.news-ticker-editor-placeholder {
+  color: #a0a0a0;
+  font-style: italic;
+  padding: 10px;
+  text-align: center;
+  border: 1px dashed #ddd;
+  background-color: #fcfcfc;
+}
+
+// Styles for the preview elements within edit.js, if not covered by inline styles
+// The preview in edit.js uses inline styles mostly for simplicity.
+// If more complex styling is needed for the preview, it can go here.
+// For instance, if the mock buttons in the preview need styling:
+.wp-block-create-block-news-ticker-block .components-button.is-small[disabled] {
+    // Example: make disabled buttons in preview less prominent
+    // opacity: 0.7;
+}
+
+.news-ticker-post-selection h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.news-ticker-search-results {
+  list-style: none;
+  padding-left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.news-ticker-search-results li {
+  padding: 5px 8px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.news-ticker-search-results li:last-child {
+  border-bottom: none;
+}
+.news-ticker-search-results .components-checkbox-control__label {
+  font-size: 0.9em;
+}
+.news-ticker-selected-posts { /* This class is also used for selected terms, .news-ticker-selected-items */
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+}
+.news-ticker-selected-posts strong { /* This class is also used for selected terms, .news-ticker-selected-items */
+  display: block;
+  margin-bottom: 5px;
+}
+.news-ticker-selected-posts ul { /* This class is also used for selected terms, .news-ticker-selected-items */
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 0;
+}
+.news-ticker-selected-posts li { /* This class is also used for selected terms, .news-ticker-selected-items */
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.news-ticker-term-selection h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+/* Using .news-ticker-search-results and .news-ticker-selected-items for terms as well.
+   If specific styling for terms list is needed, new classes can be added. */
+/* Renamed .news-ticker-selected-posts to .news-ticker-selected-items in edit.js for terms, so let's ensure styles apply to both if structure is same */
+.news-ticker-selected-items {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+}
+.news-ticker-selected-items strong {
+  display: block;
+  margin-bottom: 5px;
+}
+.news-ticker-selected-items ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 0;
+}
+.news-ticker-selected-items li {
+  font-size: 0.9em;
+  margin-bottom: 3px;
+}
+
+.news-ticker-custom-content-repeater h4 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.custom-content-item {
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+.custom-content-item-input .block-editor-rich-text__editable {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-height: 40px; /* Adjust as needed */
+  background: #fff;
+}
+.custom-content-item-controls {
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+.custom-content-item-controls .components-button {
+  min-width: auto; /* Allow small icon buttons */
+}
