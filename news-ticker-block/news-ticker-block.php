@@ -13,9 +13,7 @@
  * @package           create-block
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 // Include the server-side rendering logic for the block.
 require_once __DIR__ . '/includes/render-news-ticker.php';
@@ -26,6 +24,6 @@ require_once __DIR__ . '/includes/render-news-ticker.php';
  * which is now defined in the included file.
  */
 function news_ticker_block_init() {
-	register_block_type( __DIR__ . '/build/block.json' );
+    register_block_type( __DIR__ . '/build/block.json' );
 }
 add_action( 'init', 'news_ticker_block_init' );

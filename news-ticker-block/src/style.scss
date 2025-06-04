@@ -187,3 +187,29 @@
 body.block-editor-page .wp-block-create-block-news-ticker-block {
     // No specific overrides needed here for now, as inline styles dominate.
 }
+
+/* --- Typing Animation Cursor --- */
+.news-ticker-typing-active .news-item {
+    /* Styles for the item being typed into, if needed */
+    min-height: 1.5em; /* Ensure it has some height for cursor */
+}
+.news-ticker-typing-active .typing-line {
+    /* If lines need specific styling, e.g., block display if they are divs */
+    display: block;
+    min-height: 1.2em; /* Ensure line has height even if temporarily empty */
+}
+.typing-cursor {
+  display: inline-block;
+  animation: typing-cursor-blink 0.7s infinite;
+  font-weight: bold;
+  margin-left: 1px;
+  user-select: none; /* Prevent cursor selection */
+}
+.blinking-cursor {
+   animation: typing-cursor-blink 0.7s infinite;
+}
+
+@keyframes typing-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
