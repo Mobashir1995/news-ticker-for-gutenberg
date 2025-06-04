@@ -1,0 +1,44 @@
+# Dependencies
+/node_modules/
+
+# Build directory
+/build/
+
+# WordPress specific
+/wp-admin/
+/wp-content/
+/wp-includes/
+/xmlrpc.php
+/wp-config.php
+*.log
+wp-tests-config.php
+
+# Composer - if used
+/vendor/
+composer.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE / Editor specific
+.idea/
+.vscode/
+*.swp
+*~
+*.sublime-project
+*.sublime-workspace
+
+# NPM debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# yarn.lock # Often committed
+
+# Plugin Zip file from wp-scripts
+*.zip
