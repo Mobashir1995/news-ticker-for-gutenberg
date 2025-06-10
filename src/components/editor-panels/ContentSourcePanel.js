@@ -35,7 +35,7 @@ export default function ContentSourcePanel({ attributes, setAttributes }) {
 		const { getPostTypes } = select(coreStore);
 		const allPostTypes = getPostTypes({ per_page: -1 });
 		const filtered = allPostTypes ? allPostTypes.filter(
-			(type) => type.viewable && type.show_in_nav_menus &&
+			(type) => type.viewable &&
 			!['attachment', 'nav_menu_item', 'wp_template', 'wp_template_part', 'wp_navigation', 'wp_block'].includes(type.slug)
 		) : [];
 		return {
@@ -55,7 +55,10 @@ export default function ContentSourcePanel({ attributes, setAttributes }) {
         const { getTaxonomies } = select(coreStore);
 		if (!currentQueryOptions.postType) return { taxonomies: [], isLoadingTaxonomies: false };
 		const allTax = getTaxonomies({ type: currentQueryOptions.postType, per_page: -1, context: 'view' });
-        const filtered = allTax ? allTax.filter( tax => tax.visibility.show_ui && tax.slug !== 'post_format') : [];
+        const filtered = allTax
+            ? allTax.filter(tax => tax.visibility?.show_ui && tax.slug !== 'post_format')
+            : [];
+
 		return {
             taxonomies: filtered.map(tax => ({ label: tax.name, value: tax.slug })),
             isLoadingTaxonomies: !allTax
