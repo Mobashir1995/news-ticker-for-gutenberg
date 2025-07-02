@@ -16,6 +16,7 @@ wp-tests-config.php
 # Composer - if used
 /vendor/
 composer.lock
+package-lock.json
 
 # OS generated files
 .DS_Store
