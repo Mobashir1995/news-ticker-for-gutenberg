@@ -1,0 +1,209 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "news-ticker-for-gutenberg/news-ticker",
+	"title": "News Ticker",
+	"description": "A comprehensive news ticker block with multiple animation types and query controls.",
+	"category": "widgets",
+	"icon": "rss",
+	"keywords": [
+		"news",
+		"ticker",
+		"scrolling",
+		"animation",
+		"breaking news"
+	],
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontStyle": true,
+			"__experimentalFontWeight": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true
+		},
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		},
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		}
+	},
+	"attributes": {
+		"animationType": {
+			"type": "string",
+			"default": "scrolling"
+		},
+		"animationSpeed": {
+			"type": "number",
+			"default": 50
+		},
+		"animationDirection": {
+			"type": "string",
+			"default": "left"
+		},
+		"showControls": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPlayPause": {
+			"type": "boolean",
+			"default": true
+		},
+		"showNavigation": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLogo": {
+			"type": "boolean",
+			"default": true
+		},
+		"logoUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"logoAlt": {
+			"type": "string",
+			"default": ""
+		},
+		"showBreakingNews": {
+			"type": "boolean",
+			"default": true
+		},
+		"breakingNewsText": {
+			"type": "string",
+			"default": "Breaking News"
+		},
+		"showLiveText": {
+			"type": "boolean",
+			"default": true
+		},
+		"liveText": {
+			"type": "string",
+			"default": "LIVE"
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"dateFormat": {
+			"type": "string",
+			"default": "M j, Y"
+		},
+		"postType": {
+			"type": "string",
+			"default": "post"
+		},
+		"selectedTaxonomies": {
+			"type": "array",
+			"default": []
+		},
+		"selectedPosts": {
+			"type": "array",
+			"default": []
+		},
+		"postsPerPage": {
+			"type": "number",
+			"default": 10
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		},
+		"order": {
+			"type": "string",
+			"default": "DESC"
+		},
+		"customContent": {
+			"type": "array",
+			"default": []
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+		"accentColor": {
+			"type": "string",
+			"default": "#ff0000"
+		},
+		"fontSize": {
+			"type": "string",
+			"default": "16px"
+		},
+		"fontFamily": {
+			"type": "string",
+			"default": ""
+		},
+		"fontWeight": {
+			"type": "string",
+			"default": "400"
+		},
+		"lineHeight": {
+			"type": "string",
+			"default": "1.5"
+		},
+		"borderRadius": {
+			"type": "string",
+			"default": "0px"
+		},
+		"padding": {
+			"type": "object",
+			"default": {
+				"top": "10px",
+				"right": "15px",
+				"bottom": "10px",
+				"left": "15px"
+			}
+		},
+		"margin": {
+			"type": "object",
+			"default": {
+				"top": "0px",
+				"right": "0px",
+				"bottom": "0px",
+				"left": "0px"
+			}
+		}
+	},
+	"textdomain": "news-ticker-for-gutenberg",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"example": {
+		"attributes": {
+			"animationType": "scrolling",
+			"animationSpeed": 50,
+			"showBreakingNews": true,
+			"breakingNewsText": "Breaking News",
+			"showLiveText": true,
+			"liveText": "LIVE",
+			"postType": "post",
+			"postsPerPage": 5,
+			"backgroundColor": "#000000",
+			"textColor": "#ffffff",
+			"accentColor": "#ff0000"
+		}
+	}
+} 

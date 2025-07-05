@@ -1,0 +1,156 @@
+/**
+ * Editor styles for the News Ticker block
+ */
+
+.wp-block-news-ticker-for-gutenberg-news-ticker {
+	border: 2px dashed #ccc;
+	padding: 20px;
+	background: #f9f9f9;
+	text-align: center;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-editor-placeholder {
+	color: #666;
+	font-style: italic;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-editor-placeholder h3 {
+	margin: 0 0 10px 0;
+	color: #333;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-editor-placeholder p {
+	margin: 0;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-preview-container {
+	margin-top: 20px;
+	padding: 15px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-preview-title {
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+.wp-block-news-ticker-for-gutenberg-news-ticker .ntfg-preview-content {
+	font-size: 14px;
+	color: #666;
+}
+
+/* Inspector controls styling */
+.ntfg-inspector-controls {
+	padding: 16px;
+}
+
+.ntfg-inspector-controls .components-panel__body {
+	margin-bottom: 16px;
+}
+
+.ntfg-inspector-controls .components-base-control {
+	margin-bottom: 12px;
+}
+
+.ntfg-inspector-controls .components-base-control__label {
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.ntfg-inspector-controls .components-base-control__help {
+	font-size: 12px;
+	color: #666;
+	margin-top: 4px;
+}
+
+/* Custom content repeater */
+.ntfg-custom-content-item {
+	border: 1px solid #ddd;
+	padding: 12px;
+	margin-bottom: 8px;
+	border-radius: 4px;
+	background: #f9f9f9;
+}
+
+.ntfg-custom-content-item .components-base-control {
+	margin-bottom: 8px;
+}
+
+.ntfg-custom-content-item .components-base-control:last-child {
+	margin-bottom: 0;
+}
+
+.ntfg-custom-content-actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.ntfg-custom-content-actions .components-button {
+	flex: 1;
+}
+
+/* Color picker styling */
+.ntfg-color-picker .components-color-picker__saturation {
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.ntfg-color-picker .components-color-picker__hue {
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+/* Range control styling */
+.ntfg-range-control .components-range-control__slider {
+	width: 100%;
+}
+
+.ntfg-range-control .components-range-control__number {
+	width: 60px;
+}
+
+/* Select control styling */
+.ntfg-select-control .components-select-control__input {
+	width: 100%;
+}
+
+/* Toggle control styling */
+.ntfg-toggle-control .components-form-toggle {
+	margin-right: 8px;
+}
+
+/* Media upload styling */
+.ntfg-media-upload .components-button {
+	width: 100%;
+	justify-content: center;
+}
+
+.ntfg-media-upload .ntfg-media-preview {
+	margin-top: 8px;
+	text-align: center;
+}
+
+.ntfg-media-upload .ntfg-media-preview img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 782px) {
+	.wp-block-news-ticker-for-gutenberg-news-ticker {
+		padding: 15px;
+	}
+	
+	.ntfg-inspector-controls {
+		padding: 12px;
+	}
+	
+	.ntfg-custom-content-item {
+		padding: 8px;
+	}
+} 
