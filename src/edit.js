@@ -130,13 +130,8 @@ const NewsTickerBlock = ( { attributes, setAttributes } ) => {
 				/>
 
 				<QuerySettings
-					postType={ postType }
-					selectedTaxonomies={ selectedTaxonomies }
-					selectedPosts={ selectedPosts }
-					postsPerPage={ postsPerPage }
-					orderBy={ orderBy }
-					order={ order }
-					onChange={ ( key, value ) => setAttributes( { [ key ]: value } ) }
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 
 				<CustomContentSettings
