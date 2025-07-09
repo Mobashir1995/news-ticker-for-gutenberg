@@ -18,9 +18,27 @@ return array(
 			'html' => false
 		),
 		'attributes' => array(
+			'postType' => array(
+				'type' => 'string',
+				'default' => 'post'
+			),
 			'postsToShow' => array(
 				'type' => 'number',
-				'default' => 5
+				'default' => 10
+			),
+			'orderby' => array(
+				'type' => 'string',
+				'default' => 'date'
+			),
+			'order' => array(
+				'type' => 'string',
+				'default' => 'desc'
+			),
+			'categories' => array(
+				'type' => 'object',
+				'default' => array(
+					
+				)
 			)
 		),
 		'textdomain' => 'news-ticker-for-gutenberg',

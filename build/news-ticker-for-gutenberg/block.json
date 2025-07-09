@@ -15,9 +15,25 @@
     "html": false
   },
   "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "post"
+    },
     "postsToShow": {
       "type": "number",
-      "default": 5
+      "default": 10
+    },
+    "orderby": {
+      "type": "string",
+      "default": "date"
+    },
+    "order": {
+      "type": "string",
+      "default": "desc"
+    },
+    "categories": {
+      "type": "object",
+      "default": {}
     }
   },
   "textdomain": "news-ticker-for-gutenberg",

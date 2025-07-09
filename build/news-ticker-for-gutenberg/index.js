@@ -8,7 +8,7 @@
   \**************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"news-ticker-for-gutenberg/news-ticker","version":"1.0.0","title":"News Ticker","description":"A comprehensive news ticker block for Gutenberg with multiple animation types, query controls, and customization options.","category":"widgets","icon":"megaphone","keywords":["news","ticker"],"supports":{"html":false},"attributes":{"postsToShow":{"type":"number","default":5}},"textdomain":"news-ticker-for-gutenberg","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","script":"file:./script.js","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"news-ticker-for-gutenberg/news-ticker","version":"1.0.0","title":"News Ticker","description":"A comprehensive news ticker block for Gutenberg with multiple animation types, query controls, and customization options.","category":"widgets","icon":"megaphone","keywords":["news","ticker"],"supports":{"html":false},"attributes":{"postType":{"type":"string","default":"post"},"postsToShow":{"type":"number","default":10},"orderby":{"type":"string","default":"date"},"order":{"type":"string","default":"desc"},"categories":{"type":"object","default":{}}},"textdomain":"news-ticker-for-gutenberg","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","script":"file:./script.js","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -24,17 +24,143 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _editor_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.css */ "./src/news-ticker-for-gutenberg/editor.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _editor_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.css */ "./src/news-ticker-for-gutenberg/editor.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
-function Edit() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
-    className: "h1",
-    children: "News Ticker for Gutenberg"
+
+
+
+function Edit({
+  attributes,
+  setAttributes
+}) {
+  const {
+    postType,
+    postsToShow,
+    orderby,
+    order
+  } = attributes;
+  const orderbyOptions = [{
+    label: 'Date',
+    value: 'date'
+  }, {
+    label: 'Title',
+    value: 'title'
+  }, {
+    label: 'Menu Order',
+    value: 'menu_order'
+  }, {
+    label: 'Random',
+    value: 'rand'
+  }];
+  const orderOptions = [{
+    label: 'Descending',
+    value: 'desc'
+  }, {
+    label: 'Ascending',
+    value: 'asc'
+  }];
+  const postTypes = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => {
+    const allPostTypes = select('core').getPostTypes({
+      per_page: -1
+    });
+    // Filter for only viewable (public) post types and exclude media
+    const filteredPostTypes = allPostTypes ? allPostTypes.filter(postType => postType.viewable && postType.slug !== 'attachment') : [];
+
+    // Format for SelectControl options
+    return filteredPostTypes.map(postType => ({
+      label: postType.name,
+      value: postType.slug
+    }));
+  }, []);
+  const taxonomies = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core').getTaxonomies({
+    type: postType,
+    per_page: -1
+  }), [postType]);
+  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_3__.useSelect)(select => select('core').getEntityRecords('postType', postType, {
+    per_page: postsToShow || 5,
+    status: 'publish',
+    orderby: orderby,
+    order: order
+  }), [postType, postsToShow, orderby, order]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.InspectorControls, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: "Settings",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: "News Ticker for Gutenberg",
+          value: ""
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Query Controls', 'news-ticker-for-gutenberg'),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: "Post Type",
+          value: postType,
+          options: postTypes,
+          onChange: value => setAttributes({
+            postType: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Posts to Show', 'news-ticker-for-gutenberg'),
+          type: "number",
+          value: postsToShow,
+          onChange: value => setAttributes({
+            postsToShow: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Order By', 'news-ticker-for-gutenberg'),
+          value: orderby,
+          options: orderbyOptions,
+          onChange: value => setAttributes({
+            orderby: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Order', 'news-ticker-for-gutenberg'),
+          value: order,
+          options: orderOptions,
+          onChange: value => setAttributes({
+            order: value
+          })
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)(),
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "news-ticker-container",
+        children: [posts === null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Loading posts...', 'news-ticker-for-gutenberg')
+        }), posts === false && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Error loading posts. Please try again.', 'news-ticker-for-gutenberg')
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "news-ticker-content",
+          children: posts && Array.isArray(posts) && posts.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("ul", {
+            className: "news-ticker-list",
+            children: posts.map(post => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
+              className: "news-ticker-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                href: post.link,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                children: post.title?.rendered || post.title || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Untitled', 'news-ticker-for-gutenberg')
+              })
+            }, post.id))
+          }) : postType ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No posts found for this post type.', 'news-ticker-for-gutenberg')
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select a post type to display posts.', 'news-ticker-for-gutenberg')
+          })
+        })]
+      })
+    })]
   });
 }
 
@@ -104,6 +230,36 @@ module.exports = window["wp"]["blockEditor"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/data":
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["data"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
 
 /***/ }),
 

@@ -103,7 +103,7 @@ final class News_Ticker_For_Gutenberg {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Get the singleton instance
