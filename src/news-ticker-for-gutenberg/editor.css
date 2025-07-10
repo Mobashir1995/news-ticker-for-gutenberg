@@ -1,3 +1,89 @@
 .h1{
     font-size: 32px;
 }
+
+/* Taxonomy selectors styling for sidebar panel */
+.taxonomy-selectors {
+    margin-top: 16px;
+}
+
+.taxonomy-selectors h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+.taxonomy-group {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    background: #f9f9f9;
+}
+
+.taxonomy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+}
+
+.taxonomy-header h5 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+.taxonomy-toggle {
+    min-width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-radius: 3px !important;
+}
+
+.taxonomy-group h5 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1e1e;
+    padding-bottom: 6px;
+}
+
+.terms-checkboxes {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.terms-checkboxes .components-checkbox-control {
+    margin-bottom: 6px;
+}
+
+.terms-checkboxes .components-checkbox-control:last-child {
+    margin-bottom: 0;
+}
+
+/* Custom scrollbar styling */
+.terms-checkboxes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terms-checkboxes::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.terms-checkboxes::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.terms-checkboxes::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

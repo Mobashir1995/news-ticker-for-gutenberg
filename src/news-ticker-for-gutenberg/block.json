@@ -28,7 +28,7 @@
             "type": "string",
             "default": "desc"
         },
-        "categories": {
+        "selectedTerms": {
             "type": "object",
             "default": {}
         }
