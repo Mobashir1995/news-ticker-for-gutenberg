@@ -1,1 +1,0 @@
-{"version":3,"file":"news-ticker-for-gutenberg/index.css","mappings":";;;AAAA;IACI,eAAe;AACnB,C","sources":["webpack://news-ticker-for-gutenberg/./src/news-ticker-for-gutenberg/editor.css"],"sourcesContent":[".h1{\r\n    font-size: 32px;\r\n}"],"names":[],"sourceRoot":""}

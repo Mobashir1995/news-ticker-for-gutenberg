@@ -1,1 +1,0 @@
-<h1 <?php echo get_block_wrapper_attributes(); ?> class="h1" >News Ticker for Gutenberg</h1>
