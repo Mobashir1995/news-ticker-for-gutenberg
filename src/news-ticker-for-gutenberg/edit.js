@@ -9,6 +9,7 @@ import './editor.css';
 export default function Edit({ attributes, setAttributes }) {
     const { postType, postsToShow, orderby, order, selectedTerms } = attributes;
     const [expandedTaxonomies, setExpandedTaxonomies] = useState({});
+    const [taxonomySectionExpanded, setTaxonomySectionExpanded] = useState(false);
 
     const orderbyOptions = [
         { label: 'Date', value: 'date' },
@@ -27,6 +28,10 @@ export default function Edit({ attributes, setAttributes }) {
             ...prev,
             [taxonomySlug]: !prev[taxonomySlug]
         }));
+    };
+
+    const toggleTaxonomySection = () => {
+        setTaxonomySectionExpanded(!taxonomySectionExpanded);
     };
 
     const postTypes = useSelect( ( select ) => {
@@ -132,56 +137,85 @@ export default function Edit({ attributes, setAttributes }) {
                     {/* Taxonomy and Terms Selectors */}
                     {taxonomies && Array.isArray(taxonomies) && taxonomies.length > 0 && (
                         <div className="taxonomy-selectors">
-                            <h4>{ __('Filter by Taxonomies', 'news-ticker-for-gutenberg') }</h4>
-                            {taxonomies.map(taxonomy => {
-                                const terms = taxonomyTerms[taxonomy.rest_base];
-                                const taxonomySelectedTerms = selectedTerms[taxonomy.rest_base] || [];
-                                const isExpanded = expandedTaxonomies[taxonomy.rest_base];
-                                
-                                return (
-                                    <div key={taxonomy.rest_base} className="taxonomy-group">
-                                        <div className="taxonomy-header">
-                                            <h5>{taxonomy.name}</h5>
-                                            <Button
-                                                isSmall
-                                                variant="tertiary"
-                                                onClick={() => toggleTaxonomy(taxonomy.rest_base)}
-                                                className="taxonomy-toggle"
-                                            >
-                                                {isExpanded ? '−' : '+'}
-                                            </Button>
-                                        </div>
-                                        {isExpanded && (
-                                            <>
-                                                {terms && Array.isArray(terms) && terms.length > 0 ? (
-                                                    <div className="terms-checkboxes">
-                                                        {terms.map(term => (
-                                                            <CheckboxControl
-                                                                key={term.id}
-                                                                label={term.name}
-                                                                checked={taxonomySelectedTerms.includes(term.id)}
-                                                                onChange={(checked) => {
-                                                                    const newSelectedTerms = checked 
-                                                                        ? [...taxonomySelectedTerms, term.id]
-                                                                        : taxonomySelectedTerms.filter(id => id !== term.id);
-                                                                    setAttributes({ 
-                                                                        selectedTerms: {
-                                                                            ...selectedTerms,
-                                                                            [taxonomy.rest_base]: newSelectedTerms
-                                                                        }
-                                                                    });
-                                                                }}
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <p>{ __('No terms found for this taxonomy.', 'news-ticker-for-gutenberg') }</p>
+                            <div className="taxonomy-section-header" onClick={toggleTaxonomySection}>
+                                <div className="taxonomy-section-title">
+                                    <span className="taxonomy-icon">🏷️</span>
+                                    { __('Filter by Taxonomies', 'news-ticker-for-gutenberg') }
+                                    {selectedTerms && Object.keys(selectedTerms).some(key => selectedTerms[key] && selectedTerms[key].length > 0) && (
+                                        <span className="section-indicator">
+                                            <span className="indicator-dot"></span>
+                                        </span>
+                                    )}
+                                </div>
+                                <Button
+                                    isSmall
+                                    variant="tertiary"
+                                    className="taxonomy-section-toggle"
+                                >
+                                    {taxonomySectionExpanded ? '−' : '+'}
+                                </Button>
+                            </div>
+                            
+                            {taxonomySectionExpanded && (
+                                <div className="taxonomy-section-content">
+                                    {taxonomies.map(taxonomy => {
+                                        const terms = taxonomyTerms[taxonomy.rest_base];
+                                        const taxonomySelectedTerms = selectedTerms[taxonomy.rest_base] || [];
+                                        const isExpanded = expandedTaxonomies[taxonomy.rest_base];
+                                        
+                                        return (
+                                            <div key={taxonomy.rest_base} className="taxonomy-group">
+                                                <div className="taxonomy-header">
+                                                    <h5>
+                                                        {taxonomy.name}
+                                                        {taxonomySelectedTerms.length > 0 && (
+                                                            <span className="selected-count">
+                                                                ({taxonomySelectedTerms.length} selected)
+                                                            </span>
+                                                        )}
+                                                    </h5>
+                                                    <Button
+                                                        isSmall
+                                                        variant="tertiary"
+                                                        onClick={() => toggleTaxonomy(taxonomy.rest_base)}
+                                                        className="taxonomy-toggle"
+                                                    >
+                                                        {isExpanded ? '−' : '+'}
+                                                    </Button>
+                                                </div>
+                                                {isExpanded && (
+                                                    <>
+                                                        {terms && Array.isArray(terms) && terms.length > 0 ? (
+                                                            <div className="terms-checkboxes">
+                                                                {terms.map(term => (
+                                                                    <CheckboxControl
+                                                                        key={term.id}
+                                                                        label={term.name}
+                                                                        checked={taxonomySelectedTerms.includes(term.id)}
+                                                                        onChange={(checked) => {
+                                                                            const newSelectedTerms = checked 
+                                                                                ? [...taxonomySelectedTerms, term.id]
+                                                                                : taxonomySelectedTerms.filter(id => id !== term.id);
+                                                                            setAttributes({ 
+                                                                                selectedTerms: {
+                                                                                    ...selectedTerms,
+                                                                                    [taxonomy.rest_base]: newSelectedTerms
+                                                                                }
+                                                                            });
+                                                                        }}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <p>{ __('No terms found for this taxonomy.', 'news-ticker-for-gutenberg') }</p>
+                                                        )}
+                                                    </>
                                                 )}
-                                            </>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
                     )}
 
