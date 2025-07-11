@@ -31,6 +31,10 @@
         "selectedTerms": {
             "type": "object",
             "default": {}
+        },
+        "includePosts": {
+            "type": "array",
+            "default": []
         }
     },
     "textdomain": "news-ticker-for-gutenberg",
