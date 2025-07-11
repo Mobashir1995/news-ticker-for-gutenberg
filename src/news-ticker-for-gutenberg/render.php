@@ -23,14 +23,24 @@ if (!empty($include_posts) && is_array($include_posts)) {
     
     // Add taxonomy filters if terms are selected
     if (!empty($selected_terms) && is_array($selected_terms)) {
+        $tax_queries = array();
+        
         foreach ($selected_terms as $taxonomy => $term_ids) {
             if (!empty($term_ids) && is_array($term_ids)) {
-                $query_args['tax_query'][] = array(
+                $tax_queries[] = array(
                     'taxonomy' => $taxonomy,
                     'field' => 'term_id',
                     'terms' => $term_ids,
+                    'operator' => 'AND'
                 );
             }
+        }
+        
+        if (!empty($tax_queries)) {
+            $query_args['tax_query'] = array(
+                'relation' => 'AND',
+                $tax_queries
+            );
         }
     }
 }

@@ -219,7 +219,8 @@ final class News_Ticker_For_Gutenberg {
 	 */
 	public function register_block() {
 
-        if( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+        // Check if the modern block registration functions exist
+        if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
             wp_register_block_types_from_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
             return;
         }
@@ -228,6 +229,7 @@ final class News_Ticker_For_Gutenberg {
             wp_register_block_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
         }
 
+		// Fallback to manual registration
 		$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
         foreach ( array_keys( $manifest_data ) as $block_type ) {
             register_block_type( __DIR__ . "/build/{$block_type}" );
@@ -399,3 +401,4 @@ function news_ticker_for_gutenberg() {
 
 // Initialize the plugin
 news_ticker_for_gutenberg();
+

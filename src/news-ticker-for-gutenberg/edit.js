@@ -13,7 +13,6 @@ export default function Edit({ attributes, setAttributes }) {
     const [taxonomySectionExpanded, setTaxonomySectionExpanded] = useState(false);
     const [selectedPostsExpanded, setSelectedPostsExpanded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [isSearching, setIsSearching] = useState(false);
     const [searchPage, setSearchPage] = useState(1);
     const [hasMoreResults, setHasMoreResults] = useState(false);
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
@@ -46,44 +45,69 @@ export default function Edit({ attributes, setAttributes }) {
         setSelectedPostsExpanded(!selectedPostsExpanded);
     };
 
-    // Search posts for autocomplete
+    // Search posts for autocomplete using useSelect
     const searchResults = useSelect(select => {
         if (!searchQuery || !postType || searchQuery.length < 2) {
             return [];
         }
 
-        const results = select('core').getEntityRecords('postType', postType, {
+        // Build query parameters for search
+        const searchParams = {
             search: searchQuery,
             per_page: 10 * searchPage,
             status: 'publish',
             _embed: false
-        }) || [];
+        };
+
+        // Add taxonomy filters if terms are selected
+        if (selectedTerms && Object.keys(selectedTerms).length > 0) {
+            Object.entries(selectedTerms).forEach(([taxonomySlug, termIds]) => {
+                if (termIds && Array.isArray(termIds) && termIds.length > 0) {
+                    // WordPress REST API uses taxonomy slug as parameter with comma-separated term IDs
+                    searchParams[taxonomySlug] = termIds.join(',');
+                }
+            });
+        }
+
+        const results = select('core').getEntityRecords('postType', postType, searchParams) || [];
 
         // Check if there are more results available
         const totalResults = select('core').getEntityRecords('postType', postType, {
-            search: searchQuery,
-            per_page: 10 * (searchPage + 1),
-            status: 'publish',
-            _embed: false
+            ...searchParams,
+            per_page: 10 * (searchPage + 1)
         }) || [];
 
         setHasMoreResults(totalResults.length > results.length);
 
         return results;
-    }, [searchQuery, postType, searchPage]);
+    }, [searchQuery, postType, searchPage, selectedTerms]);
 
     // Check if search is loading
     const isSearchLoading = useSelect(select => {
         if (!searchQuery || !postType || searchQuery.length < 2) {
             return false;
         }
-        return select('core/data').isResolving('core', 'getEntityRecords', ['postType', postType, {
+
+        // Build search parameters to match the search query
+        const searchParams = {
             search: searchQuery,
-            per_page: 10,
+            per_page: 10 * searchPage,
             status: 'publish',
             _embed: false
-        }]);
-    }, [searchQuery, postType]);
+        };
+
+        // Add taxonomy filters if terms are selected
+        if (selectedTerms && Object.keys(selectedTerms).length > 0) {
+            Object.entries(selectedTerms).forEach(([taxonomySlug, termIds]) => {
+                if (termIds && Array.isArray(termIds) && termIds.length > 0) {
+                    // WordPress REST API uses taxonomy slug as parameter with comma-separated term IDs
+                    searchParams[taxonomySlug] = termIds.join(',');
+                }
+            });
+        }
+
+        return select('core/data').isResolving('core', 'getEntityRecords', ['postType', postType, searchParams]);
+    }, [searchQuery, postType, searchPage, selectedTerms]);
 
     // Get selected posts details
     const selectedPostsDetails = useSelect(select => {
@@ -145,6 +169,14 @@ export default function Edit({ attributes, setAttributes }) {
             setSelectedPostsExpanded(true);
         }
     };
+
+    // Reset search pagination when taxonomy filters change
+    useEffect(() => {
+        if (searchQuery && searchQuery.length >= 2) {
+            setSearchPage(1);
+            setHasMoreResults(false);
+        }
+    }, [selectedTerms, searchQuery]);
 
     // Handle clicking outside the search dropdown
     useEffect(() => {
