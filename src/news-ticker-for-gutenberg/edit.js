@@ -2,10 +2,27 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { TextControl, SelectControl, PanelBody, CheckboxControl, Button, ComboboxControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useState, useRef, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect, useCallback } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 
 import './editor.css';
+
+// Simple debounce hook for search
+function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value, delay]);
+
+    return debouncedValue;
+}
 
 export default function Edit({ attributes, setAttributes }) {
     const { postType, postsToShow, orderby, order, selectedTerms, includePosts } = attributes;
@@ -17,6 +34,9 @@ export default function Edit({ attributes, setAttributes }) {
     const [hasMoreResults, setHasMoreResults] = useState(false);
     const [showSearchDropdown, setShowSearchDropdown] = useState(false);
     const searchContainerRef = useRef(null);
+
+    // Simple debounce search query with 500ms delay (optimal balance)
+    const debouncedSearchQuery = useDebounce(searchQuery, 600);
 
     const orderbyOptions = [
         { label: 'Date', value: 'date' },
@@ -45,15 +65,15 @@ export default function Edit({ attributes, setAttributes }) {
         setSelectedPostsExpanded(!selectedPostsExpanded);
     };
 
-    // Search posts for autocomplete using useSelect
+    // Search posts for autocomplete using useSelect with debounced query
     const searchResults = useSelect(select => {
-        if (!searchQuery || !postType || searchQuery.length < 2) {
+        if (!debouncedSearchQuery || !postType || debouncedSearchQuery.length < 2) {
             return [];
         }
 
         // Build query parameters for search
         const searchParams = {
-            search: searchQuery,
+            search: debouncedSearchQuery,
             per_page: 10 * searchPage,
             status: 'publish',
             _embed: false
@@ -80,17 +100,17 @@ export default function Edit({ attributes, setAttributes }) {
         setHasMoreResults(totalResults.length > results.length);
 
         return results;
-    }, [searchQuery, postType, searchPage, selectedTerms]);
+    }, [debouncedSearchQuery, postType, searchPage, selectedTerms]);
 
     // Check if search is loading
     const isSearchLoading = useSelect(select => {
-        if (!searchQuery || !postType || searchQuery.length < 2) {
+        if (!debouncedSearchQuery || !postType || debouncedSearchQuery.length < 2) {
             return false;
         }
 
         // Build search parameters to match the search query
         const searchParams = {
-            search: searchQuery,
+            search: debouncedSearchQuery,
             per_page: 10 * searchPage,
             status: 'publish',
             _embed: false
@@ -107,7 +127,7 @@ export default function Edit({ attributes, setAttributes }) {
         }
 
         return select('core/data').isResolving('core', 'getEntityRecords', ['postType', postType, searchParams]);
-    }, [searchQuery, postType, searchPage, selectedTerms]);
+    }, [debouncedSearchQuery, postType, searchPage, selectedTerms]);
 
     // Get selected posts details
     const selectedPostsDetails = useSelect(select => {
@@ -158,7 +178,7 @@ export default function Edit({ attributes, setAttributes }) {
         setSearchPage(prev => prev + 1);
     };
 
-    const handleSearchQueryChange = (newQuery) => {
+    const handleSearchQueryChange = useCallback((newQuery) => {
         setSearchQuery(newQuery);
         setSearchPage(1); // Reset pagination when search query changes
         setHasMoreResults(false);
@@ -168,15 +188,15 @@ export default function Edit({ attributes, setAttributes }) {
         if (includePosts && includePosts.length > 0) {
             setSelectedPostsExpanded(true);
         }
-    };
+    }, [includePosts]);
 
     // Reset search pagination when taxonomy filters change
     useEffect(() => {
-        if (searchQuery && searchQuery.length >= 2) {
+        if (debouncedSearchQuery && debouncedSearchQuery.length >= 2) {
             setSearchPage(1);
             setHasMoreResults(false);
         }
-    }, [selectedTerms, searchQuery]);
+    }, [selectedTerms, debouncedSearchQuery]);
 
     // Handle clicking outside the search dropdown
     useEffect(() => {
