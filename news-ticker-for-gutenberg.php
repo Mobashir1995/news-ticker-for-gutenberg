@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: News Ticker for Gutenberg
- * Plugin URI: https://example.com/news-ticker-for-gutenberg
+ * Plugin URI: http://plugin-devs.com/news-ticker-for-gutenberg
  * Description: A comprehensive news ticker block for Gutenberg with multiple animation types, query controls, and customization options.
  * Version: 1.0.0
  * Requires at least: 6.0
  * Tested up to: 6.8.1
  * Requires PHP: 7.4
- * Author: Your Name
- * Author URI: https://example.com
+ * Author: PluginDevs
+ * Author URI: http://plugin-devs.com/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: news-ticker-for-gutenberg
@@ -17,7 +17,7 @@
  * 
  * @package NewsTickerForGutenberg
  * @version 1.0.0
- * @author Your Name
+ * @author PluginDevs
  * @license GPL-2.0+
  */
 
