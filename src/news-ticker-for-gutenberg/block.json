@@ -12,6 +12,10 @@
         "html": false
     },
     "attributes": {
+        "heading": {
+            "type": "string",
+            "default": "Breaking News"
+        },
         "postType": {
             "type": "string",
             "default": "post"

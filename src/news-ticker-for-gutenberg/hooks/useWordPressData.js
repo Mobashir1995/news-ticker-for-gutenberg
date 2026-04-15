@@ -62,7 +62,7 @@ export function usePosts({ postType, postsToShow, orderby, order, selectedTerms,
 
         // Build query parameters
         const queryParams = {
-            per_page: postsToShow || 5,
+            per_page: postsToShow || 10,
             status: 'publish',
             orderby: orderby,
             order: order

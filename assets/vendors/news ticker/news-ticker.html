@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla JS News Ticker</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="demo-grid" id="demoGrid">
+    <div class="demo-title">Marquee (continuous)</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-marquee" data-effect="marquee">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button" aria-label="Previous item">Prev</button>
+          <button class="ticker-btn" data-play type="button" aria-label="Pause ticker">Pause</button>
+          <button class="ticker-btn" data-next type="button" aria-label="Next item">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>Breaking:</strong> Vanilla JS ticker ships with zero dependencies.</div>
+            <!-- <div class="ticker-item"><strong>Market:</strong> Frontend performance trends improve on mid-range devices.</div>
+            <div class="ticker-item"><strong>Release:</strong> requestAnimationFrame remains the smoothest baseline.</div>
+            <div class="ticker-item"><strong>UX:</strong> Pause on hover improves readability for long headlines.</div>
+            <div class="ticker-item"><strong>Tip:</strong> Use transform + will-change for efficient scrolling.</div> -->
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+
+    <div class="demo-title">Slide Left</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-slideLeft" data-effect="slideLeft">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button">Prev</button>
+          <button class="ticker-btn" data-play type="button">Pause</button>
+          <button class="ticker-btn" data-next type="button">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>SlideLeft:</strong> Incoming item enters from right.</div>
+            <div class="ticker-item"><strong>Motion:</strong> Current item exits to left.</div>
+            <div class="ticker-item"><strong>Control:</strong> Use Next/Prev to skip manually.</div>
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+
+    <div class="demo-title">Slide Right</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-slideRight" data-effect="slideRight">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button">Prev</button>
+          <button class="ticker-btn" data-play type="button">Pause</button>
+          <button class="ticker-btn" data-next type="button">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>SlideRight:</strong> Incoming item enters from left.</div>
+            <div class="ticker-item"><strong>Direction:</strong> Active item exits to right.</div>
+            <div class="ticker-item"><strong>Mobile:</strong> Touch pause is enabled.</div>
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+
+    <div class="demo-title">Slide Up</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-slideUp" data-effect="slideUp">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button">Prev</button>
+          <button class="ticker-btn" data-play type="button">Pause</button>
+          <button class="ticker-btn" data-next type="button">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>SlideUp:</strong> Vertical transition from bottom.</div>
+            <div class="ticker-item"><strong>Readability:</strong> Great for compact layouts.</div>
+            <div class="ticker-item"><strong>Performance:</strong> Transform-based animations only.</div>
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+
+    <div class="demo-title">Slide Down</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-slideDown" data-effect="slideDown">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button">Prev</button>
+          <button class="ticker-btn" data-play type="button">Pause</button>
+          <button class="ticker-btn" data-next type="button">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>SlideDown:</strong> Vertical transition from top.</div>
+            <div class="ticker-item"><strong>Behavior:</strong> Opposite motion of SlideUp.</div>
+            <div class="ticker-item"><strong>Buttons:</strong> Prev/Next remain instant.</div>
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+
+    <div class="demo-title">Fade</div>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker-fade" data-effect="fade">
+        <div class="ticker-btns">
+          <button class="ticker-btn" data-prev type="button">Prev</button>
+          <button class="ticker-btn" data-play type="button">Pause</button>
+          <button class="ticker-btn" data-next type="button">Next</button>
+        </div>
+        <div class="ticker-viewport" data-viewport>
+          <div class="ticker-track" data-track>
+            <div class="ticker-item"><strong>Fade:</strong> Clean opacity-only transition.</div>
+            <div class="ticker-item"><strong>Minimal:</strong> No directional movement.</div>
+            <div class="ticker-item"><strong>Best for:</strong> Calm UI and short updates.</div>
+          </div>
+        </div>
+        <div class="ticker-btns"><span class="ticker-help">Hover to pause</span></div>
+      </div>
+    </div>
+  </div>
+  <script src="./ticker.js"></script>
+</body>
+</html>

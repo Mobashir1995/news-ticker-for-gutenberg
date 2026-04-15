@@ -206,10 +206,6 @@ final class News_Ticker_For_Gutenberg {
 	public function init() {
 		// Register block
 		$this->register_block();
-
-		// Enqueue scripts and styles
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -218,70 +214,29 @@ final class News_Ticker_For_Gutenberg {
 	 * @since 1.0.0
 	 */
 	public function register_block() {
+		$build_dir = __DIR__ . '/build';
+		$manifest_path = $build_dir . '/blocks-manifest.php';
 
-        // Check if the modern block registration functions exist
-        if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
-            wp_register_block_types_from_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
-            return;
-        }
+		// Prefer registering blocks from generated metadata collection.
+		if ( file_exists( $manifest_path ) ) {
+			if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+				wp_register_block_types_from_metadata_collection( $build_dir, $manifest_path );
+				return;
+			}
 
-        if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
-            wp_register_block_metadata_collection( __DIR__ . '/build', __DIR__ . '/build/blocks-manifest.php' );
-        }
+			if ( function_exists( 'wp_register_block_metadata_collection' ) ) {
+				wp_register_block_metadata_collection( $build_dir, $manifest_path );
+			}
 
-		// Fallback to manual registration
-		$manifest_data = require __DIR__ . '/build/blocks-manifest.php';
-        foreach ( array_keys( $manifest_data ) as $block_type ) {
-            register_block_type( __DIR__ . "/build/{$block_type}" );
-        }
-	}
-
-	/**
-	 * Enqueue frontend scripts and styles
-	 *
-	 * @since 1.0.0
-	 */
-	public function enqueue_scripts() {
-		// Only enqueue if block is used
-		if ( ! has_block( 'news-ticker-for-gutenberg/news-ticker' ) ) {
+			$manifest_data = require $manifest_path;
+			foreach ( array_keys( $manifest_data ) as $block_type ) {
+				register_block_type( $build_dir . "/{$block_type}" );
+			}
 			return;
 		}
 
-		wp_enqueue_style(
-			'news-ticker-for-gutenberg-style',
-			$this->plugin_url . 'build/style-index.css',
-			array(),
-			$this->version
-		);
-
-		wp_enqueue_script(
-			'news-ticker-for-gutenberg-frontend',
-			$this->plugin_url . 'build/frontend.js',
-			array(),
-			$this->version,
-			true
-		);
-	}
-
-	/**
-	 * Enqueue admin scripts and styles
-	 *
-	 * @since 1.0.0
-	 */
-	public function admin_enqueue_scripts() {
-		$screen = get_current_screen();
-		
-		// Only enqueue on post edit screens
-		if ( ! $screen || ! in_array( $screen->base, array( 'post', 'post-new' ) ) ) {
-			return;
-		}
-
-		wp_enqueue_style(
-			'news-ticker-for-gutenberg-editor',
-			$this->plugin_url . 'build/index.css',
-			array(),
-			$this->version
-		);
+		// Last resort for environments without manifest file.
+		register_block_type( $build_dir . '/news-ticker-for-gutenberg' );
 	}
 
 	/**

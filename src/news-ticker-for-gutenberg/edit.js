@@ -17,13 +17,15 @@ import './editor.css';
  * Main editor component that orchestrates all the functionality
  */
 export default function Edit({ attributes, setAttributes }) {
+    const { heading } = attributes;
     return (
         <>
             <InspectorControls>
                 <PanelBody title="Settings">
                     <TextControl
-                        label="News Ticker for Gutenberg"
-                        value=""
+                        label="Heading"
+                        value={ heading }
+                        onChange={value => setAttributes({ heading: value })}
                     />
                 </PanelBody>
                 
